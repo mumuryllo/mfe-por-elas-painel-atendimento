@@ -5,10 +5,14 @@ import Face3Icon from '@mui/icons-material/Face3';
 import SpaIcon from '@mui/icons-material/Spa';
 import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
 
+import { THEME_COLORS, THEME_SIZES } from '../constants/theme';
+import { HighlightCardProps } from '../interfaces';
+import { formatClientName } from '../utils';
+
 const StyledCard = styled(Card)<{ $isActive: boolean }>`
-  border-left: 8px solid ${props => props.$isActive ? '#8C5A40' : '#E8A798'};
+  border-left: ${THEME_SIZES.cardBorderWidth} solid ${props => props.$isActive ? THEME_COLORS.primary : THEME_COLORS.secondary};
   margin-bottom: 16px;
-  border-radius: 16px;
+  border-radius: ${THEME_SIZES.borderRadius}px;
   transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
   
   &:hover {
@@ -17,17 +21,11 @@ const StyledCard = styled(Card)<{ $isActive: boolean }>`
   }
 `;
 
-export interface HighlightCardProps {
-  clientName: string;
-  serviceName: string;
-  isActive?: boolean;
-}
-
 export const HighlightCard = ({ clientName, serviceName, isActive = false }: HighlightCardProps) => {
   return (
     <StyledCard elevation={isActive ? 3 : 1} $isActive={isActive}>
       <CardContent sx={{ p: isActive ? 3 : 2, '&:last-child': { pb: isActive ? 3 : 2 } }}>
-        <Stack direction="row" spacing={3} alignItems="center">
+        <Stack direction="row" spacing={3} sx={{ alignItems: 'center' }}>
           <Avatar 
             sx={{ 
               bgcolor: isActive ? 'primary.main' : 'secondary.main', 
@@ -35,15 +33,15 @@ export const HighlightCard = ({ clientName, serviceName, isActive = false }: Hig
               height: isActive ? 72 : 56 
             }}
           >
-            <Face3Icon sx={{ fontSize: isActive ? 40 : 32, color: isActive ? '#FFF' : '#4A2F21' }} />
+            <Face3Icon sx={{ fontSize: isActive ? 40 : 32, color: isActive ? '#FFF' : THEME_COLORS.textPrimary }} />
           </Avatar>
           
-          <Box flex={1}>
+          <Box sx={{ flex: 1 }}>
             <Typography variant={isActive ? "h4" : "h6"} color="text.primary">
-              {clientName}
+              {formatClientName(clientName)}
             </Typography>
             
-            <Stack direction="row" spacing={1} alignItems="center" sx={{ mt: 0.5 }}>
+            <Stack direction="row" spacing={1} sx={{ alignItems: 'center', mt: 0.5 }}>
               <SpaIcon sx={{ fontSize: 18, color: 'text.secondary' }} />
               <Typography variant="body1" color="text.secondary">
                 {serviceName}
@@ -51,7 +49,7 @@ export const HighlightCard = ({ clientName, serviceName, isActive = false }: Hig
             </Stack>
 
             {isActive && (
-              <Stack direction="row" spacing={1} alignItems="center" sx={{ mt: 2 }}>
+              <Stack direction="row" spacing={1} sx={{ alignItems: 'center', mt: 2 }}>
                 <AutoAwesomeIcon sx={{ fontSize: 20, color: 'success.main' }} />
                 <Typography variant="button" sx={{ color: 'success.main' }}>
                   EM ATENDIMENTO

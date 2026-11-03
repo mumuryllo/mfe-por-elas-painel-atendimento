@@ -3,21 +3,16 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
 import { Box, Button, Container, TextField, Typography, Paper, Alert, MenuItem } from '@mui/material';
 import styled from 'styled-components';
+import { THEME_COLORS, THEME_SIZES } from 'shared-ui';
+import { CadastroForm, cadastroSchema } from '../../schemas/cadastroSchema';
 
-// Schema de validação do cadastro
-const cadastroSchema = z.object({
-  clientName: z.string().min(3, 'O nome deve ter no mínimo 3 caracteres'),
-  serviceName: z.string().min(1, 'Selecione um serviço'),
-});
-
-type CadastroForm = z.infer<typeof cadastroSchema>;
 
 const StyledPaper = styled(Paper)`
   padding: 32px;
-  border-top: 6px solid #5D4037; /* Destaque Marrom */
+  border-top: ${THEME_SIZES.cardBorderWidth} solid ${THEME_COLORS.primary};
+  border-radius: ${THEME_SIZES.borderRadius}px;
   margin-top: 48px;
 `;
 
@@ -39,7 +34,6 @@ export default function CadastroPage() {
 
   const onSubmit = (data: CadastroForm) => {
     console.log('Cliente enviada para a fila:', data);
-    // Aqui no futuro entrará o Axios/React Query enviando pro backend ou módulo federado
     setSucesso(true);
     reset();
     setTimeout(() => setSucesso(false), 3000);
@@ -88,10 +82,10 @@ export default function CadastroPage() {
           <Button
             type="submit"
             variant="contained"
-            color="success" // Verde da paleta
+            color="success" 
             fullWidth
             size="large"
-            sx={{ mt: 4, fontWeight: 'bold' }}
+            sx={{ mt: 4, fontWeight: 'bold', borderRadius: 2 }}
           >
             Adicionar à Fila
           </Button>

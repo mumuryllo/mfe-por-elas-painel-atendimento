@@ -3,23 +3,18 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
 import { useRouter } from 'next/navigation';
 import { Box, Button, Container, TextField, Typography, Paper, Stack } from '@mui/material';
 import styled from 'styled-components';
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
+import { THEME_COLORS, THEME_SIZES } from 'shared-ui';
 
-const loginSchema = z.object({
-  email: z.string().email('E-mail inválido'),
-  password: z.string().min(6, 'A senha deve ter no mínimo 6 caracteres'),
-});
-
-type LoginForm = z.infer<typeof loginSchema>;
+import { LoginForm, loginSchema } from '../schemas/loginSchema';
 
 const StyledPaper = styled(Paper)`
   padding: 40px 32px;
-  border-top: 8px solid #8C5A40;
-  border-radius: 16px;
+  border-top: ${THEME_SIZES.cardBorderWidth} solid ${THEME_COLORS.primary};
+  border-radius: ${THEME_SIZES.borderRadius}px;
 `;
 
 export default function LoginPage() {
@@ -29,20 +24,21 @@ export default function LoginPage() {
   });
 
   const onSubmit = (data: LoginForm) => {
+    console.log('Dados de login válidos:', data);
     router.push('/cadastro');
   };
 
   return (
     <Container maxWidth="xs">
-      <Box display="flex" flexDirection="column" justifyContent="center" minHeight="100vh" bgcolor="background.default">
+      <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', minHeight: '100vh', bgcolor: 'background.default' }}>
         <StyledPaper elevation={2}>
-          <Stack direction="column" alignItems="center" mb={1}>
+          <Stack direction="column" sx={{ alignItems: 'center', mb: 1 }}>
             <AdminPanelSettingsIcon sx={{ fontSize: 48, color: 'secondary.main', mb: 1 }} />
-            <Typography variant="h4" color="primary.main" textAlign="center">
+            <Typography variant="h4" color="primary.main" sx={{ textAlign: 'center' }}>
               Projeto Por Elas
             </Typography>
           </Stack>
-          <Typography variant="body1" color="text.secondary" textAlign="center" mb={4}>
+          <Typography variant="body1" color="text.secondary" sx={{ textAlign: 'center', mb: 4 }}>
             Acesso Restrito - Recepção
           </Typography>
 
