@@ -1,0 +1,20 @@
+'use client';
+
+import React from 'react';
+import { ThemeProvider } from 'shared-ui';
+import { Playfair_Display, Inter } from 'next/font/google';
+
+const playfair = Playfair_Display({ subsets: ['latin'], variable: '--font-playfair' });
+const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <html lang="pt-BR" className={`${playfair.variable} ${inter.variable}`}>
+      <body style={{ margin: 0, backgroundColor: '#FAF6F3' }}>
+        <ThemeProvider>
+          {children}
+        </ThemeProvider>
+      </body>
+    </html>
+  );
+}

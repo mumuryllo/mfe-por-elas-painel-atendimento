@@ -1,0 +1,36 @@
+{
+  "name": "mfe-por-elas-atendimento",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev:admin": "npm run dev -w apps/admin",
+    "dev:client": "npm run dev -w apps/client",
+    "dev": "concurrently -c \"cyan,magenta\" -n \"ADMIN,CLIENT\" \"npm run dev:admin\" \"npm run dev:client\""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "dependencies": {
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.1",
+    "@module-federation/nextjs-mf": "^8.8.76",
+    "@mui/material": "^9.5.0",
+    "@mui/styled-engine-sc": "^9.5.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "styled-components": "^6.6.0"
+  },
+  "devDependencies": {
+    "@next/env": "^14.2.15",
+    "@swc/helpers": "^0.5.23",
+    "@types/styled-components": "^5.1.36",
+    "concurrently": "^10.0.6",
+    "next": "^14.2.15"
+  }
+}
