@@ -4,12 +4,13 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/navigation';
-import { Box, Button, Container, TextField, Typography, Paper, Stack } from '@mui/material';
+import Link from 'next/link';
+import { Box, Button, Container, TextField, Typography, Paper, Stack, Link as MuiLink } from '@mui/material';
 import styled from 'styled-components';
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import { THEME_COLORS, THEME_SIZES } from 'shared-ui';
 
-import { LoginForm, loginSchema } from '../schemas/loginSchema';
+import { loginSchema, LoginForm } from '../schemas/loginSchema';
 
 const StyledPaper = styled(Paper)`
   padding: 40px 32px;
@@ -24,8 +25,7 @@ export default function LoginPage() {
   });
 
   const onSubmit = (data: LoginForm) => {
-    console.log('Dados de login válidos:', data);
-    router.push('/cadastro');
+    router.push('/dashboard');
   };
 
   return (
@@ -60,6 +60,17 @@ export default function LoginPage() {
               error={!!errors.password}
               helperText={errors.password?.message}
             />
+
+            <Box sx={{ display: 'flex', justifyContent: 'flex-end', mt: 1 }}>
+              <MuiLink
+                component={Link}
+                href="/redefinir-senha"
+                underline="hover"
+                sx={{ color: 'primary.main', fontSize: '0.875rem', fontWeight: 500 }}
+              >
+                Esqueci minha senha
+              </MuiLink>
+            </Box>
             
             <Button
               type="submit"
@@ -67,7 +78,7 @@ export default function LoginPage() {
               color="primary"
               fullWidth
               size="large"
-              sx={{ mt: 4, py: 1.5, borderRadius: 2 }}
+              sx={{ mt: 3, py: 1.5, borderRadius: 2 }}
             >
               ENTRAR
             </Button>
